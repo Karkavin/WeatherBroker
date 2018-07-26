@@ -1,4 +1,4 @@
-package ru.touchit.api.controller;
+package ru.touchit.weather.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class DefaultController {
+
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public ModelAndView index(ModelAndView modelAndView) {
         modelAndView.setViewName("index");

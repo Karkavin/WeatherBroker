@@ -1,19 +1,19 @@
-package ru.touchit.api.view;
-
-import org.hibernate.validator.constraints.Length;
+package ru.touchit.weather.request;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-public class City {
+public class CityRequest {
+
     @NotNull(message = "Название города не должно быть null")
-    @Length(min = 1, message = "Длина названия города должа содержать как минимум один символ")
+    @Size(min = 1, message = "Длина названия города должа содержать как минимум один символ")
     private String name;
 
-    public City() {
+    public CityRequest() {
 
     }
 
-    public City(String name) {
+    public CityRequest(String name) {
         this.name = name;
     }
 
