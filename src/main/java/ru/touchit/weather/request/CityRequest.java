@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 public class CityRequest {
 
     @NotNull(message = "Название города не должно быть null")
-    @Size(min = 1, message = "Длина названия города должа содержать как минимум один символ")
+    @Size(min = 1, max = 100, message = "Длина названия города должа содержать от 1 до 100 символов")
     private String name;
 
     public CityRequest() {

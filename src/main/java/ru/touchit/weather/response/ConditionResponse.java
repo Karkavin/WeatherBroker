@@ -1,5 +1,8 @@
 package ru.touchit.weather.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ConditionResponse {
     private String code;
     private String date;
