@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.touchit.weather.exception.NoSuchCityException;
 import ru.touchit.weather.exception.WrongWeatherModelException;
+import ru.touchit.weather.jms.JmsSender;
 import ru.touchit.weather.response.WeatherResponse;
 import ru.touchit.weather.util.WeatherUrlCreator;
 
@@ -21,6 +22,9 @@ public class YahooWeatherApiServiceImpl implements WeatherApiService {
 
     @Autowired
     private WeatherUrlCreator weatherUrlCreator;
+
+    @Autowired
+    JmsSender jmsSender;
 
     public YahooWeatherApiServiceImpl(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
@@ -40,6 +44,8 @@ public class YahooWeatherApiServiceImpl implements WeatherApiService {
         if (weatherResponse.getQuery().getResults() == null) {
             throw new NoSuchCityException("There is no such city " + city + " in database of weather provider " + WEATHER_PROVIDER);
         }
+
+        jmsSender.send(weatherResponse);
 
         return weatherResponse;
     }

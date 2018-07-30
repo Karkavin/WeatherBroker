@@ -2,8 +2,10 @@ package ru.touchit.weather.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LocationResponse {
+public class LocationResponse implements Serializable {
     private String city;
     private String country;
     private String region;

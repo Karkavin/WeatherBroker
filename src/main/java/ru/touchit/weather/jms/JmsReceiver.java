@@ -1,5 +1,7 @@
 package ru.touchit.weather.jms;
 
-public interface JmsReceiver {
+import ru.touchit.weather.response.WeatherResponse;
 
+public interface JmsReceiver {
+    void onReceive(WeatherResponse weatherResponse);
 }

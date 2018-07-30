@@ -2,8 +2,10 @@ package ru.touchit.weather.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class QueryResponse {
+public class QueryResponse implements Serializable {
     private Long count;
     private String created;
     private String lang;

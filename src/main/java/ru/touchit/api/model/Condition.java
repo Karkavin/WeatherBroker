@@ -9,7 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "condition", catalog = "public")
@@ -20,8 +23,9 @@ public class Condition implements Serializable{
     @Column(name = "id")
     private Long id;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "date", nullable = false, length = 50)
-    private String date;
+    private Date date;
 
     @Column(name = "temp", nullable = false)
     private short temp;
@@ -37,7 +41,7 @@ public class Condition implements Serializable{
 
     }
 
-    public Condition(String date, short temp, String text) {
+    public Condition(Date date, short temp, String text) {
         this.date = date;
         this.temp = temp;
         this.text = text;
@@ -51,11 +55,11 @@ public class Condition implements Serializable{
         this.id = id;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
