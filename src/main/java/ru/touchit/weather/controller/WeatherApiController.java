@@ -13,17 +13,16 @@ import ru.touchit.weather.exception.NoSuchCityException;
 import ru.touchit.weather.exception.WrongWeatherModelException;
 import ru.touchit.weather.service.WeatherApiService;
 import ru.touchit.weather.request.CityRequest;
-import ru.touchit.weather.response.WeatherResponse;
 
 import javax.validation.Valid;
 
 @RestController
-public class WeatherController {
+public class WeatherApiController {
     private final WeatherApiService weatherApiService;
     private final BindingResultParser bindingResultParser;
 
     @Autowired
-    public WeatherController(WeatherApiService weatherApiService, BindingResultParser bindingResultParser) {
+    public WeatherApiController(WeatherApiService weatherApiService, BindingResultParser bindingResultParser) {
         this.weatherApiService = weatherApiService;
         this.bindingResultParser = bindingResultParser;
     }
@@ -41,9 +40,8 @@ public class WeatherController {
             return new ModelAndView("errorMessage", model);
         }
 
-        WeatherResponse weatherResponse = null;
         try {
-            weatherResponse = weatherApiService.getWeatherByCity(cityRequest.getName());
+            weatherApiService.getWeatherByCity(cityRequest.getName());
         } catch (WrongWeatherModelException e) {
             model.addAttribute("cause", "Ошибка работы с моделью погоды поставщика " + weatherApiService.getWeatherProviderName());
 

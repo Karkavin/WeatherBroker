@@ -23,7 +23,7 @@ public class Condition implements Serializable{
     @Column(name = "id")
     private Long id;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date", nullable = false, length = 50)
     private Date date;
 

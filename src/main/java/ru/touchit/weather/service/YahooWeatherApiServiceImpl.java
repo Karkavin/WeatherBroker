@@ -13,7 +13,7 @@ import ru.touchit.weather.util.WeatherUrlCreator;
 
 import java.io.IOException;
 
-@Service
+@Service("weatherApiService")
 public class YahooWeatherApiServiceImpl implements WeatherApiService {
     private static final String WEATHER_PROVIDER = "Yahoo Погода";
 

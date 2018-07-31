@@ -13,7 +13,7 @@ CREATE TABLE public.location
 CREATE TABLE public.condition
 (
       id          SERIAL NOT NULL PRIMARY KEY,
-      date        DATE NOT NULL,
+      date        TIMESTAMP NOT NULL,
       temp        SMALLINT NOT NULL,
       text        VARCHAR(150) NOT NULL,
       city        VARCHAR(100) NOT NULL,
