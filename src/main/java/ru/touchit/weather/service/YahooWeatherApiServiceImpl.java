@@ -13,6 +13,10 @@ import ru.touchit.weather.util.WeatherUrlCreator;
 
 import java.io.IOException;
 
+/**
+ * {@inheritDoc}
+ * @author Artyom Karkavin
+ */
 @Service("weatherApiService")
 public class YahooWeatherApiServiceImpl implements WeatherApiService {
     private static final String WEATHER_PROVIDER = "Yahoo Погода";
@@ -26,10 +30,17 @@ public class YahooWeatherApiServiceImpl implements WeatherApiService {
     @Autowired
     JmsSender jmsSender;
 
+    /**
+     * Конструктор
+     * @param restTemplateBuilder builder для построения rest клиента
+     */
     public YahooWeatherApiServiceImpl(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public WeatherResponse getWeatherByCity(String city) throws WrongWeatherModelException, NoSuchCityException {
         String weather = restTemplate.getForObject(weatherUrlCreator.create(city), String.class);
@@ -50,6 +61,9 @@ public class YahooWeatherApiServiceImpl implements WeatherApiService {
         return weatherResponse;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getWeatherProviderName() {
         return WEATHER_PROVIDER;

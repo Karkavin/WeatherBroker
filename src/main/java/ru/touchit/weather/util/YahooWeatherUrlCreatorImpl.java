@@ -2,9 +2,16 @@ package ru.touchit.weather.util;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * {@inheritDoc}
+ * @author Artyom Karkavin
+ */
 @Component
 public class YahooWeatherUrlCreatorImpl implements WeatherUrlCreator {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String create(String city) {
         String base = "https://query.yahooapis.com/v1/public";

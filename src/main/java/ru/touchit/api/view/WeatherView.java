@@ -1,19 +1,52 @@
 package ru.touchit.api.view;
 
+/**
+ * View с информацией о погоде
+ * @author Artyom Karkavin
+ */
 public class WeatherView {
+    /** Поле: дата последнего обновления погоды */
     private String date;
+
+    /** Поле: температура в единице Фаренгейт */
     private short temp;
+
+    /** Поле: текстовое описание погоды */
     private String text;
+
+    /** Поле: широта */
     private double lat;
+
+    /** Поле: долгота */
     private double lon;
+
+    /** Поле: город */
     private String city;
+
+    /** Поле: регион */
     private String region;
+
+    /** Поле: страна */
     private String country;
 
+    /**
+     * Конструктор
+     */
     public WeatherView() {
 
     }
 
+    /**
+     * Конструктор
+     * @param date дата последнего обновления погоды
+     * @param temp температура в единице Фаренгейт
+     * @param text текстовое описание погоды
+     * @param lat широта
+     * @param lon долгота
+     * @param city город
+     * @param region регион
+     * @param country страна
+     */
     public WeatherView(String date, short temp, String text, double lat, double lon, String city, String region, String country) {
         this.date = date;
         this.temp = temp;

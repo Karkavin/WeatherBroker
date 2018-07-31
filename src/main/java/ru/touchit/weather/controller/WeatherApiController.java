@@ -16,22 +16,47 @@ import ru.touchit.weather.request.CityRequest;
 
 import javax.validation.Valid;
 
+/**
+ * Контроллер для работы со сторонним сервисом получения погоды {@link WeatherApiController}
+ * @author Artyom Karkavin
+ */
 @RestController
 public class WeatherApiController {
     private final WeatherApiService weatherApiService;
     private final BindingResultParser bindingResultParser;
 
+    /**
+     * Конструктор
+     * @param weatherApiService - сервис для работы со сторонним сервисом получения погоды
+     * @param bindingResultParser - парсер результата валидации приходящего JSON
+     */
     @Autowired
     public WeatherApiController(WeatherApiService weatherApiService, BindingResultParser bindingResultParser) {
         this.weatherApiService = weatherApiService;
         this.bindingResultParser = bindingResultParser;
     }
 
+    /**
+     * Отображение страницы для ввода города для получения погоды
+     * @return holder с именем view и пустой формой
+     * @see ModelAndView
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/city")
     public ModelAndView enterCity() {
         return new ModelAndView("city", "city", new CityRequest());
     }
 
+    /**
+     * Получение погоды из стороннего сервиса и отображение страницы с результатом
+     * @param cityRequest данные с формы
+     * @param result информация о результатах валидации JSON
+     * @param model модель
+     * @return holder с именем view и моделью
+     * @see ModelAndView
+     * @see CityRequest
+     * @see BindingResult
+     * @see ModelMap
+     */
     @RequestMapping(value = "/addCity", method = RequestMethod.POST)
     public ModelAndView submitCity(@ModelAttribute("city") @Valid CityRequest cityRequest, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {

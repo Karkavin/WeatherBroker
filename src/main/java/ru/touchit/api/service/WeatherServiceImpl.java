@@ -17,31 +17,43 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
+/**
+ * {@inheritDoc}
+ * @author Artyom Karkavin
+ */
 @Service("weatherService")
 public class WeatherServiceImpl implements WeatherService {
     private final LocationDao locationDao;
     private final ConditionDao conditionDao;
 
+    /**
+     * Конструктор
+     * @param locationDao Dao для работы с местонахождением
+     * @param conditionDao Dao для работы с погодой
+     */
     @Autowired
     public WeatherServiceImpl(LocationDao locationDao, ConditionDao conditionDao) {
         this.locationDao = locationDao;
         this.conditionDao = conditionDao;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public void add(WeatherResponse weatherResponse) {
         LocationResponse locationResponse = weatherResponse.getQuery().getResults().getChannel().getLocation();
         ConditionResponse conditionResponse = weatherResponse.getQuery().getResults().getChannel().getItem().getCondition();
 
-        Optional<Location> locationOptional = locationDao.findById(locationResponse.getCity());
+        List<Location> locations = locationDao.findByCity(locationResponse.getCity());
 
         Location location;
-        if (locationOptional.isPresent()) {
-            location = locationOptional.get();
+        if (locations.size() != 0) {
+            location = locations.get(0);
             location.setCity(locationResponse.getCity());
             location.setRegion(locationResponse.getRegion());
             location.setCountry(locationResponse.getCountry());
@@ -75,16 +87,19 @@ public class WeatherServiceImpl implements WeatherService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
     public WeatherView getCurrentWeather(String city) throws NoSuchCityException {
-        Optional<Location> locationOptional = locationDao.findById(city);
+        List<Location> locations = locationDao.findByCity(city);
 
         Location location;
-        if (!locationOptional.isPresent()) {
+        if (locations.size() == 0) {
             throw new NoSuchCityException("There is no such city " + city + " in database");
         } else {
-            location = locationOptional.get();
+            location = locations.get(0);
         }
 
         Condition condition = conditionDao.findFirstByLocationOrderByDateDesc(location);

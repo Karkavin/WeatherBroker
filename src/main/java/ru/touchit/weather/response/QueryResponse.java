@@ -4,17 +4,38 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 
+/**
+ * Response с данными о погоде со стороннего сервиса
+ * @author Artyom Karkavin
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class QueryResponse implements Serializable {
+    /** Поле: количество возвращаемых записей */
     private Long count;
+
+    /** Поле: дата формирования ответа */
     private String created;
+
+    /** Поле: язык */
     private String lang;
+
+    /** Поле: результаты запроса */
     private ResultsResponse results;
 
+    /**
+     * Конструктор
+     */
     public QueryResponse() {
 
     }
 
+    /**
+     * Конструктор
+     * @param count количество возвращаемых записей
+     * @param created дата формирования ответа
+     * @param lang язык
+     * @param results результаты запроса
+     */
     public QueryResponse(Long count, String created, String lang, ResultsResponse results) {
         this.count = count;
         this.created = created;

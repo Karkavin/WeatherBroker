@@ -14,33 +14,50 @@ import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Entity для сущности Погода
+ * @author Artyom Karkavin
+ */
 @Entity
 @Table(name = "condition", catalog = "public")
 public class Condition implements Serializable{
-
+    /** Поле: идентификатор */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    /** Поле: дата последнего обновления погоды */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date", nullable = false, length = 50)
     private Date date;
 
+    /** Поле: температура в единице Фаренгейт */
     @Column(name = "temp", nullable = false)
     private short temp;
 
+    /** Поле: текстовое описание погоды */
     @Column(name = "text", nullable = false, length = 150)
     private String text;
 
+    /** Поле: связь с сущностью Местонахождение */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city", nullable = false)
+    @JoinColumn(name = "city_id", nullable = false)
     private Location location;
 
+    /**
+     * Конструктор
+     */
     public Condition() {
 
     }
 
+    /**
+     * Конструктор
+     * @param date дата последнего обновления погоды
+     * @param temp температура в единице Фаренгейт
+     * @param text текстовое описание погоды
+     */
     public Condition(Date date, short temp, String text) {
         this.date = date;
         this.temp = temp;

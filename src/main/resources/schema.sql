@@ -3,7 +3,8 @@ DROP TABLE IF EXISTS public.condition CASCADE;
 
 CREATE TABLE public.location
 (
-      city          VARCHAR(100) NOT NULL PRIMARY KEY,
+      id            SERIAL NOT NULL PRIMARY KEY,
+      city          VARCHAR(100) NOT NULL,
       region        VARCHAR(100) NOT NULL,
       country       VARCHAR(100) NOT NULL,
       lat           DOUBLE PRECISION NOT NULL,
@@ -16,8 +17,12 @@ CREATE TABLE public.condition
       date        TIMESTAMP NOT NULL,
       temp        SMALLINT NOT NULL,
       text        VARCHAR(150) NOT NULL,
-      city        VARCHAR(100) NOT NULL,
-      CONSTRAINT fk_condition_location FOREIGN KEY (city) REFERENCES location (city)
+      city_id     BIGINT NOT NULL,
+      CONSTRAINT fk_condition_location FOREIGN KEY (city_id) REFERENCES location (id)
       ON DELETE CASCADE
       ON UPDATE CASCADE
 );
+
+CREATE INDEX IX_condition_city_id ON public.condition (city_id);
+CREATE INDEX IX_condition_date_city_id ON public.condition (date, city_id);
+CREATE INDEX IX_condition_date ON public.condition (date);

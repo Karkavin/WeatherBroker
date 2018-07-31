@@ -3,6 +3,8 @@ package ru.touchit.api.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -10,33 +12,58 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Entity для сущности Местонахождение
+ * @author Artyom Karkavin
+ */
 @Entity
 @Table(name = "location", catalog = "public")
 public class Location implements Serializable {
-
+    /** Поле: идентификатор */
     @Id
-    @Column(name = "city", length = 100)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    /** Поле: наименование города */
+    @Column(name = "city", nullable = false, length = 100)
     private String city;
 
+    /** Поле: регион */
     @Column(name = "region", nullable = false, length = 100)
     private String region;
 
+    /** Поле: страна */
     @Column(name = "country", nullable = false, length = 100)
     private String country;
 
+    /** Поле: широта */
     @Column(name = "lat", nullable = false)
     private double lat;
 
+    /** Поле: долгота */
     @Column(name = "lon", nullable = false)
     private double lon;
 
+    /** Поле: связь с сущностью Погода */
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Condition> conditions;
 
+    /**
+     * Конструктор
+     */
     public Location() {
 
     }
 
+    /**
+     * Конструктор
+     * @param city наименование города
+     * @param region регион
+     * @param country страна
+     * @param lat широта
+     * @param lon долгота
+     */
     public Location(String city, String region, String country, double lat, double lon) {
         this.city = city;
         this.region = region;

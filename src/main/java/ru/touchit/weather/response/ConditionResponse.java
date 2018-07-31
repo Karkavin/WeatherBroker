@@ -4,17 +4,38 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 
+/**
+ * Response с данными о погоде со стороннего сервиса
+ * @author Artyom Karkavin
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConditionResponse implements Serializable {
+    /** Поле: код */
     private String code;
+
+    /** Поле: дата последнего обновления текущей погоды */
     private String date;
+
+    /** Поле: текущая температура в единице Фаренгейт */
     private String temp;
+
+    /** Поле: текстовое описание погоды */
     private String text;
 
+    /**
+     * Конструктор
+     */
     private ConditionResponse() {
 
     }
 
+    /**
+     * Конструктор
+     * @param code код
+     * @param date дата последнего обновления текущей погоды
+     * @param temp текущая температура в единице Фаренгейт
+     * @param text текстовое описание погоды
+     */
     public ConditionResponse(String code, String date, String temp, String text) {
         this.code = code;
         this.date = date;
