@@ -3,12 +3,12 @@ package ru.touchit.weather.jms;
 import ru.touchit.weather.response.WeatherResponse;
 
 /**
- * Отправитель сообщений в очередь
+ * Отправитель сообщений в topic
  * @author Artyom Karkavin
  */
 public interface JmsSender {
     /**
-     * Отправка сообщения в очередь
+     * Отправка сообщения в topic
      * @see WeatherResponse
      */
     void send(WeatherResponse weatherResponse);

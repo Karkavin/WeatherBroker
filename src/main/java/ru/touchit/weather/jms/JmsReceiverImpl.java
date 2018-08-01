@@ -2,7 +2,7 @@ package ru.touchit.weather.jms;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import ru.touchit.api.service.WeatherService;
 import ru.touchit.weather.response.WeatherResponse;
 
@@ -10,7 +10,7 @@ import ru.touchit.weather.response.WeatherResponse;
  * {@inheritDoc}
  * @author Artyom Karkavin
  */
-@Service
+@Component
 public class JmsReceiverImpl implements JmsReceiver {
     private final WeatherService weatherService;
 
@@ -27,7 +27,7 @@ public class JmsReceiverImpl implements JmsReceiver {
      * {@inheritDoc}
      */
     @Override
-    @JmsListener(destination = JmsSenderImpl.WEATHER_QUEUE)
+    @JmsListener(destination = JmsSenderImpl.WEATHER_TOPIC)
     public void onReceive(WeatherResponse weatherResponse) {
         weatherService.add(weatherResponse);
     }

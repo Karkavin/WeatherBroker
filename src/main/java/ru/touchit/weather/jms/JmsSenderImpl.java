@@ -2,17 +2,17 @@ package ru.touchit.weather.jms;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.touchit.weather.response.WeatherResponse;
 
 /**
  * {@inheritDoc}
  * @author Artyom Karkavin
  */
-@Component
+@Service
 public class JmsSenderImpl implements JmsSender {
-    /** Поле: jndi имя очереди */
-    public static final String WEATHER_QUEUE = "java:jboss/weather";
+    /** Поле: имя для topic */
+    public static final String WEATHER_TOPIC = "java:jboss/weather";
 
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -22,6 +22,6 @@ public class JmsSenderImpl implements JmsSender {
      */
     @Override
     public void send(WeatherResponse weatherResponse) {
-        jmsTemplate.convertAndSend(WEATHER_QUEUE, weatherResponse);
+        jmsTemplate.convertAndSend(WEATHER_TOPIC, weatherResponse);
     }
 }
